@@ -161,8 +161,8 @@ D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\UnityEngine.HoloLens.xml
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
-D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp.dll
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp.pdb
+D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

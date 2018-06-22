@@ -120,7 +120,6 @@ D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\Boo.Lang.Useful.dll
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\Unity.CecilTools.dll
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\Unity.Cecil.Pdb.dll
-D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\Assembly-CSharp.pdb
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\UnityEngine.xml
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\UnityEditor.xml
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\UnityEngine.AIModule.xml
@@ -204,3 +203,4 @@ D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp-Editor.dll
 D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\obj\Debug\Assembly-CSharp-Editor.pdb
+D:\__Unity\GitHub Projects\unity3d-ui-toggle-project\UI Toggle Project\Temp\bin\Debug\Assembly-CSharp.pdb

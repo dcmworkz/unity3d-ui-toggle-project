@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1312504413}
   - component: {fileID: 1312504412}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Lairinus.Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1398104352}
   m_Father: {fileID: 327037455}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -392,30 +393,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bd2d8dacd0c7741bf4d07f6af5a63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _checkboxIsTrueGraphic: {fileID: 1398104351}
   _disabled: 0
+  _elementHoveredColor: {r: 0, g: 0.62493044, b: 0.8018868, a: 0}
+  _elementHoveredSprite: {fileID: 0}
+  _elementNormalColor: {r: 1, g: 1, b: 1, a: 0}
+  _elementNormalSprite: {fileID: 0}
   _isOn: 0
-  _toggleIsOnColor: {r: 1, g: 1, b: 1, a: 1}
-  _toggleIsOffColor: {r: 1, g: 1, b: 1, a: 1}
-  _toggleHoveredColor: {r: 0.46316677, g: 0.9622642, b: 0.104396604, a: 1}
-  _toggleIsOnSprite: {fileID: 0}
-  _toggleIsOffSprite: {fileID: 0}
-  _toggleHoveredSprite: {fileID: 0}
-  _onToggleFalseHandler:
+  _onToggleChangedHandler:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _onToggleHandler:
+  _onToggleOffHandler:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _onToggleTrueHandler:
+  _onToggleOnHandler:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _allowHoverEvents: 1
+  _toggleIsFalseGraphic: {fileID: 0}
+  _toggleIsTrueGraphic: {fileID: 0}
+  _toggleType: 2
+  _useHoverEvents: 1
 --- !u!114 &1312504413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +452,74 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1312504410}
+--- !u!1 &1398104351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1398104352}
+  - component: {fileID: 1398104354}
+  - component: {fileID: 1398104353}
+  m_Layer: 5
+  m_Name: Checkbox.IsChecked
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1398104352
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1398104351}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1312504411}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 180.5, y: 38.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1398104353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1398104351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1398104354
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1398104351}
 --- !u!1 &1805952587
 GameObject:
   m_ObjectHideFlags: 0

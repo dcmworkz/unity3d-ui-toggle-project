@@ -13,44 +13,124 @@ namespace Lairinus.UI
     [RequireComponent(typeof(Graphic))]
     public class UIToggle : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        [SerializeField] private GameObject _checkboxIsTrueGraphic = null;
+
         [SerializeField] private bool _disabled = false;
-        [SerializeField] private bool _isOn = false;
-        [SerializeField] private Color _toggleIsOnColor = Color.white;
-        [SerializeField] private Color _toggleIsOffColor = Color.white;
-        [SerializeField] private Color _toggleHoveredColor = Color.white;
-        [SerializeField] private Sprite _toggleIsOnSprite = null;
-        [SerializeField] private Sprite _toggleIsOffSprite = null;
-        [SerializeField] private Sprite _toggleHoveredSprite = null;
-        [SerializeField] private UnityEvent _onToggleFalseHandler = new UnityEvent();
-        [SerializeField] private UnityEvent _onToggleHandler = new UnityEvent();
-        [SerializeField] private UnityEvent _onToggleTrueHandler = new UnityEvent();
-        [SerializeField] private bool _allowHoverEvents = false;
+
+        [SerializeField] private Color _elementHoveredColor = new Color();
+
+        [SerializeField] private Sprite _elementHoveredSprite = null;
+
+        [SerializeField] private Color _elementNormalColor = new Color();
+
+        [SerializeField] private Sprite _elementNormalSprite = null;
+
+        private bool _isHovered = false;
+
         private bool _isInitialized = false;
+
+        [SerializeField] private bool _isOn = false;
+
+        [SerializeField] private UnityEvent _onToggleChangedHandler = new UnityEvent();
+
+        [SerializeField] private UnityEvent _onToggleOffHandler = new UnityEvent();
+
+        [SerializeField] private UnityEvent _onToggleOnHandler = new UnityEvent();
+
+        private Graphic _thisGraphic = null;
+
+        private Image _thisImage = null;
+
+        private Text _thisText = null;
+
+        [SerializeField] private GameObject _toggleIsFalseGraphic = null;
+
+        [SerializeField] private GameObject _toggleIsTrueGraphic = null;
+
+        [SerializeField] private ToggleType _toggleType = new ToggleType();
+
+        [SerializeField] private bool _useHoverEvents = false;
+
+        public enum ToggleType
+        {
+            Checkbox = 1,
+            Switch = 2,
+            SingleGraphic = 3
+        }
+
         public bool disabled { get { return _disabled; } set { _disabled = value; } }
 
         public bool isOn { get { return _isOn; } }
-        public UnityEvent onToggleFalseHandler { get { return _onToggleFalseHandler; } }
-        public UnityEvent onToggleHandler { get { return _onToggleHandler; } }
-        public UnityEvent onToggleTrueHandler { get { return _onToggleTrueHandler; } }
-        private Graphic _thisGraphic = null;
-        private Image _thisImage = null;
-        private Text _thisText = null;
-        private bool _isHovered = false;
+        public UnityEvent onToggleFalseHandler { get { return _onToggleOffHandler; } }
+        public UnityEvent onToggleHandler { get { return _onToggleChangedHandler; } }
+        public UnityEvent onToggleTrueHandler { get { return _onToggleOnHandler; } }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            SetToggledState(!_isOn);
+            if (!_disabled)
+                SetToggledState(!_isOn, false);
         }
 
-        public void SetToggledState(bool toggledState)
+        public void OnPointerEnter(PointerEventData data)
         {
-            SetToggledStateInternal(toggledState);
+            if (_useHoverEvents)
+            {
+                _isHovered = true;
+                SetToggledStateInternal(_isOn, false);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData data)
+        {
+            _isHovered = false;
+            SetToggledStateInternal(_isOn, false);
+        }
+
+        /// <summary>
+        /// Sets the state of the toggle through code. The "Force" parameter determines if it should still be set even if the Toggle is disabled
+        /// </summary>
+        /// <param name="toggledState"></param>
+        /// <param name="force"></param>
+        public void SetToggledState(bool toggledState, bool force)
+        {
+            SetToggledStateInternal(toggledState, force);
         }
 
         private void Awake()
         {
             TryInitializeComponents();
-            SetToggledState(_isOn);
+            SetToggledState(_isOn, true);
+        }
+
+        private void SetImageSpriteInternal(Sprite sprite)
+        {
+            if (_thisImage != null)
+            {
+                _thisImage.sprite = sprite;
+            }
+        }
+
+        /// <summary>
+        /// Internally adjusts the toggle states based on the current value
+        /// </summary>
+        /// <param name="toggledState"></param>
+        /// <param name="force"></param>
+        private void SetToggledStateInternal(bool toggledState, bool force)
+        {
+            _isOn = toggledState;
+            TryInitializeComponents();
+
+            if (_disabled && !force)
+                return;
+
+            ApplyToggleStylesInternal();
+
+            // Call the events
+            _onToggleChangedHandler.Invoke();
+            if (_isOn)
+                _onToggleOnHandler.Invoke();
+            else
+                _onToggleOffHandler.Invoke();
         }
 
         private void TryInitializeComponents()
@@ -64,72 +144,70 @@ namespace Lairinus.UI
                 _thisImage = GetComponent<Image>();
             else if (_thisGraphic is Text)
                 _thisText = GetComponent<Text>();
+
+            ApplyToggleStylesInternal();
         }
 
-        private void SetToggledStateInternal(bool toggledState)
+        private void ApplyToggleStylesInternal()
         {
-            TryInitializeComponents();
-            _isOn = toggledState;
-            if (!_isHovered)
+            switch (_toggleType)
             {
-                if (_isOn)
-                {
-                    _thisGraphic.color = _toggleIsOnColor;
-                    SetImageSpriteInternal(_toggleIsOnSprite);
-                }
-                else
-                {
-                    _thisGraphic.color = _toggleIsOffColor;
-                    SetImageSpriteInternal(_toggleIsOffSprite);
-                }
+                // We only hide/show one graphic
+                case ToggleType.Checkbox:
+                    {
+                        if (_isOn)
+                        {
+                            if (_checkboxIsTrueGraphic != null)
+                                _checkboxIsTrueGraphic.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            if (_checkboxIsTrueGraphic != null)
+                                _checkboxIsTrueGraphic.gameObject.SetActive(false);
+                        }
+                    }
+                    break;
+
+                // We hide/show two graphics
+                case ToggleType.Switch:
+                    {
+                        if (_isOn)
+                        {
+                            if (_toggleIsFalseGraphic != null)
+                                _toggleIsFalseGraphic.SetActive(false);
+
+                            if (_toggleIsTrueGraphic != null)
+                                _toggleIsTrueGraphic.SetActive(true);
+                        }
+                        else
+                        {
+                            if (_toggleIsFalseGraphic != null)
+                                _toggleIsFalseGraphic.SetActive(true);
+
+                            if (_toggleIsTrueGraphic != null)
+                                _toggleIsTrueGraphic.SetActive(false);
+                        }
+                    }
+                    break;
+
+                // We modify the current Graphic
+                case ToggleType.SingleGraphic:
+                    {
+                    }
+                    break;
             }
-            else
+
+            // Handle the Hover events
+            if (_isHovered && _useHoverEvents)
             {
-                if (_isHovered && _allowHoverEvents)
-                {
-                    _thisGraphic.color = _toggleHoveredColor;
-                    SetImageSpriteInternal(_toggleHoveredSprite);
-                }
+                _thisGraphic.color = _elementHoveredColor;
+                SetImageSpriteInternal(_elementHoveredSprite);
             }
-
-            // Call the events
-            if (_isOn)
-                _onToggleTrueHandler.Invoke();
-            else
-                _onToggleFalseHandler.Invoke();
-            _onToggleHandler.Invoke();
-        }
-
-        private void SetImageSpriteInternal(Sprite sprite)
-        {
-            if (_thisImage != null)
+            else if (!_isHovered && _useHoverEvents)
             {
-                _thisImage.sprite = sprite;
+                _thisGraphic.color = _elementNormalColor;
+                SetImageSpriteInternal(_elementNormalSprite);
             }
-        }
-
-        public void OnPointerEnter(PointerEventData data)
-        {
-            if (_allowHoverEvents)
-            {
-                _isHovered = true;
-                SetToggledStateInternal(_isOn);
-            }
-        }
-
-        public void OnPointerExit(PointerEventData data)
-        {
-            _isHovered = false;
-            SetToggledStateInternal(_isOn);
-        }
-
-        public class UIToggleStyles
-        {
-            public Image image = null;
-            public Color toggleOffColor = Color.white;
-            public Color toggleOnColor = Color.white;
-            public Sprite toggleOffSprite = null;
-            public Sprite toggleOnSprite = null;
         }
     }
 }
