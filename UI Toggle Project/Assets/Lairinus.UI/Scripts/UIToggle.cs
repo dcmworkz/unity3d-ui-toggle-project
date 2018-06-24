@@ -10,6 +10,7 @@ namespace Lairinus.UI
     /// <summary>
     /// a UIToggle is a custom element that surpasses the functionality of a regular toggle. It adds many necessary features that otherwise would not exist.
     /// </summary>
+    [ExecuteInEditMode]
     [RequireComponent(typeof(Graphic))]
     public class UIToggle : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
@@ -55,7 +56,6 @@ namespace Lairinus.UI
         {
             Checkbox = 1,
             Switch = 2,
-            SingleGraphic = 3
         }
 
         public bool disabled { get { return _disabled; } set { _disabled = value; } }
@@ -76,14 +76,14 @@ namespace Lairinus.UI
             if (_useHoverEvents)
             {
                 _isHovered = true;
-                SetToggledStateInternal(_isOn, false);
+                ApplyToggleStylesInternal();
             }
         }
 
         public void OnPointerExit(PointerEventData data)
         {
             _isHovered = false;
-            SetToggledStateInternal(_isOn, false);
+            ApplyToggleStylesInternal();
         }
 
         /// <summary>
@@ -99,7 +99,6 @@ namespace Lairinus.UI
         private void Awake()
         {
             TryInitializeComponents();
-            SetToggledState(_isOn, true);
         }
 
         private void SetImageSpriteInternal(Sprite sprite)
@@ -148,6 +147,14 @@ namespace Lairinus.UI
             ApplyToggleStylesInternal();
         }
 
+        /// <summary>
+        /// Mostly used with the editor, but can be used to force any un-applied updates
+        /// </summary>
+        public void ApplyToggleStyles()
+        {
+            ApplyToggleStylesInternal();
+        }
+
         private void ApplyToggleStylesInternal()
         {
             switch (_toggleType)
@@ -187,12 +194,6 @@ namespace Lairinus.UI
                             if (_toggleIsTrueGraphic != null)
                                 _toggleIsTrueGraphic.SetActive(false);
                         }
-                    }
-                    break;
-
-                // We modify the current Graphic
-                case ToggleType.SingleGraphic:
-                    {
                     }
                     break;
             }

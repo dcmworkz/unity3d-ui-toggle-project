@@ -24,6 +24,7 @@ namespace Lairinus.UI.EditorScripts
         private SerializedProperty _toggleIsTrueGraphic = null;
         private SerializedProperty _toggleType = null;
         private SerializedProperty _useHoverEvents = null;
+        private UIToggle _thisObject = null;
 
         public override void OnInspectorGUI()
         {
@@ -48,8 +49,8 @@ namespace Lairinus.UI.EditorScripts
             _toggleIsTrueGraphic = serializedObject.FindProperty(EditorStringContainer.toggleIsTrueGraphic);
             _toggleType = serializedObject.FindProperty(EditorStringContainer.toggleType);
             _useHoverEvents = serializedObject.FindProperty(EditorStringContainer.useHoverEvents);
-            UIToggle tar = (UIToggle)target;
-            _thisGraphic = tar.gameObject.GetComponent<Graphic>();
+            _thisObject = (UIToggle)target;
+            _thisGraphic = _thisObject.gameObject.GetComponent<Graphic>();
         }
 
         private void RenderInspector()
@@ -101,6 +102,9 @@ namespace Lairinus.UI.EditorScripts
                 EditorGUILayout.PropertyField(_onToggleOnHandler);
                 EditorGUILayout.PropertyField(_onToggleChangedHandler);
             }
+
+            if (_thisObject != null)
+                _thisObject.ApplyToggleStyles();
         }
 
         public class EditorStringContainer

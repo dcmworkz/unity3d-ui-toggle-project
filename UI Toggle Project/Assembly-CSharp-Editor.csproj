@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Lairinus.UI\Editor\UGUIMenu.cs" />
     <Compile Include="Assets\Lairinus.UI\Editor\UIToggleEditor.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/__Unity/GitHub Projects/unity3d-ui-toggle-project/UI Toggle Project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
